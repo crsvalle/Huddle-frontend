@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import Users from "../Components/Users";
 
-export default function Users() {
+const API_URL = process.env.REACT_APP_API_URL;
+
+export default function UsersIndex() {
     const [loading, setLoading] = useState(false);
     const [erroMsg, setErrorMsg] = useState("");
     const [users, setUsers] = useState([])

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Teams from "../Components/Teams";
+const API_URL = process.env.REACT_APP_API_URL;
 
-export default function Teams() {
+export default function TeamsIndex() {
   const [loading, setLoading] = useState(false);
   const [erroMsg, setErrorMsg] = useState("");
   const [teams, setTeams] = useState([])
