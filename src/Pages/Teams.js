@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Teams from "../Components/Teams";
 
 export default function Teams() {
   const [loading, setLoading] = useState(false);
@@ -26,7 +27,17 @@ export default function Teams() {
     }
     fetchData();
   }, []);
+
+  const renderContent = () => {
+    if (loading) {
+      return <div className="Loading">Loading...</div>;
+    } else if (erroMsg) {
+      return <div className="Error">Error: {erroMsg} </div>;
+    } else {
+      return <Teams teams={teams} />;
+    }
+  };
   return (
-    <div>Teams</div>
+    <div>{renderContent}</div>
   )
 }
