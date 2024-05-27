@@ -3,7 +3,7 @@ import Users from "../Components/Users";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-export default function UsersIndex() {
+export default function UsersIndex({ id }) {
     const [loading, setLoading] = useState(false);
     const [erroMsg, setErrorMsg] = useState("");
     const [users, setUsers] = useState([])
@@ -29,6 +29,7 @@ export default function UsersIndex() {
         }
         fetchData();
     }, []);
+
     const renderContent = () => {
         if (loading) {
             return <div className="Loading">Loading...</div>;
@@ -39,6 +40,6 @@ export default function UsersIndex() {
         }
     };
     return (
-        <div>{renderContent}</div>
+        <div>{renderContent()}</div>
     )
 }
