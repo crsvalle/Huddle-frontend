@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Users from "../Components/Users";
+import UsersList from "../Components/UsersList";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -36,7 +36,7 @@ export default function UsersIndex({ id }) {
         } else if (erroMsg) {
             return <div className="Error">Error: {erroMsg} </div>;
         } else {
-            return <Users users={users} />;
+            return <UsersList users={users} />;
         }
     };
     return (
