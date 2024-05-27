@@ -44,6 +44,7 @@ export default function UsersList({ users }) {
             <User key={user.id} user={user} />
         ));
     };
+
     return (
         <div>
             <section>
