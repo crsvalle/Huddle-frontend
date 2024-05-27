@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
+import UsersIndex from "./UsersIndex";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function TeamPage() {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [teamData, setTeamData] = useState(null);
-  const {id} = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
     async function fetchData() {
@@ -42,6 +43,7 @@ export default function TeamPage() {
           {/* will replace with team info component in future => figure out what data needs to be fetched in this file*/}
           <h1>{teamData.name}</h1>
           <p>{teamData.description}</p>
+          {<UsersIndex id={id} />}
         </div>
       );
     } else {

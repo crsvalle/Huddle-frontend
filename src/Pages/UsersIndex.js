@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import Users from "../Components/Users";
+import UsersList from "../Components/UsersList";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-export default function UsersIndex() {
+export default function UsersIndex({ id }) {
     const [loading, setLoading] = useState(false);
     const [erroMsg, setErrorMsg] = useState("");
     const [users, setUsers] = useState([])
@@ -29,16 +29,17 @@ export default function UsersIndex() {
         }
         fetchData();
     }, []);
+
     const renderContent = () => {
         if (loading) {
             return <div className="Loading">Loading...</div>;
         } else if (erroMsg) {
             return <div className="Error">Error: {erroMsg} </div>;
         } else {
-            return <Users users={users} />;
+            return <UsersList users={users} />;
         }
     };
     return (
-        <div>{renderContent}</div>
+        <div>{renderContent()}</div>
     )
 }
