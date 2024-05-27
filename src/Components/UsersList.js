@@ -21,19 +21,18 @@ export default function UsersList({ users }) {
     });
 
     usersToDisplay.sort((a, b) => {
-        const aValue = a[sortKey];
-        const bValue = b[sortKey];
+        let aValue = a[sortKey];
+        let bValue = b[sortKey];
         if (sortKey === "name") {
-            const aValue = `${a.first_name} ${a.last_name}`;
-            const bValue = `${b.first_name} ${b.last_name}`;
+            aValue = `${a.first_name} ${a.last_name}`;
+            bValue = `${b.first_name} ${b.last_name}`;
+        }
+        if (aValue < bValue) {
+            return -1;
+        } else if (aValue > bValue) {
+            return 1;
         } else {
-            if (aValue < bValue) {
-                return -1;
-            } else if (aValue > bValue) {
-                return 1;
-            } else {
-                return 0;
-            }
+            return 0;
         }
     });
 
