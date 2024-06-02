@@ -1,16 +1,26 @@
 import { useState } from "react";
+import { useAuth } from "../contexts/authContext";
+import { doCreateUserWithEmailAndPassword } from "../firebase/auth";
 
 export default function Register() {
-  const [username, setUsername] = useState('');
+  const { userLoggedIn } = useAuth()
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (password !== confirmPassword) {
-      alert('Passwords do not match');
+      setErrorMsg('Passwords do not match');
       return;
+    }
+    try {
+      await doCreateUserWithEmailAndPassword(email, password);
+    } catch (error) {
+      setErrorMsg(error.message);
     }
   };
 
@@ -18,16 +28,7 @@ export default function Register() {
     <div className="register-container">
       <form onSubmit={handleSubmit} className="register-form">
         <h2>Register</h2>
-        <div className="form-group">
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
+        {errorMsg && <div className="error-message">{errorMsg}</div>}
         <div className="form-group">
           <label htmlFor="email">Email:</label>
           <input
