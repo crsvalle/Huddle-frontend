@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { useAuth } from "../contexts/authContext";
+import { Navigate } from "react-router-dom";
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from "../firebase/auth";
+import { useAuth } from "../contexts/authContext";
 
 export default function Login() {
-  const { userLoggedIn } = useAuth();
+  const  {userLoggedIn}  = useAuth()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMsg, setErrorMsg] = useState('')
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,15 +22,19 @@ export default function Login() {
     e.preventDefault();
     doSignInWithGoogle()
       .catch(error => {
-        setErrorMsg(error.message)
+        setErrorMsg(error.message);
       });
   }
 
+  if (userLoggedIn) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="login-container">
       <form onSubmit={handleSubmit} className="login-form">
         <h2>Login</h2>
+        {errorMsg && <div className="error-message">{errorMsg}</div>}
         <div className="form-group">
           <label htmlFor="email">Email:</label>
           <input
@@ -51,6 +56,7 @@ export default function Login() {
           />
         </div>
         <button type="submit">Login</button>
+        <button onClick={googleSignIn}>Login with Google</button>
       </form>
     </div>
   );
