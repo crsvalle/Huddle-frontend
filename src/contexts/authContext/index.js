@@ -10,7 +10,6 @@ export function useAuth(){
 
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState(null);
-    const [userLoggedIn, setUserLoggedIn] = useState(false);
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -21,16 +20,14 @@ export function AuthProvider({ children }) {
     async function initializeUser(user) {
         if (user) {
             setCurrentUser({ ...user });
-            setUserLoggedIn(true);
         } else {
             setCurrentUser(null);
-            setUserLoggedIn(false)
         }
         setLoading(false)
     }
     
     const value = {
-        currentUser, userLoggedIn, loading
+        currentUser, userLoggedIn: !!currentUser, loading
     }
     return (
         <AuthContext.Provider value={value}>
