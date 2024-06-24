@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import './User.css'
-export default function User({ user }) {
-    const [expanded, setExpanded] = useState(false);
-    const handleExpand = () => {
-        setExpanded(!expanded)
-    }
+export default function User({ user, expanded, onClick }) {
+
     return (
         <div className='userCard'>
             <div className='userCardImg'>
@@ -25,7 +22,7 @@ export default function User({ user }) {
                 )}
             </div>
             <div className='userCardButton'>
-                <button onClick={handleExpand}>{expanded ? "-" : "+"} </button>
+                <button onClick={onClick}>{expanded ? "-" : "+"} </button>
             </div>
         </div>
     )
