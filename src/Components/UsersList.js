@@ -78,6 +78,8 @@ export default function UsersList({ users }) {
                         <option value="name">name</option>
                         <option value="email">email</option>
                     </select>
+                    <button onClick={toggleExpandAll}>Expand All</button>
+                    <button onClick={toggleCollapseAll}>Collaspe All</button>
 
                 </div>
                 <div className=''>{renderContent()}</div>

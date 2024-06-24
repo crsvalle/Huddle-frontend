@@ -1,7 +1,5 @@
-import { useState } from 'react';
 import './User.css'
 export default function User({ user, expanded, onClick }) {
-
     return (
         <div className='userCard'>
             <div className='userCardImg'>
