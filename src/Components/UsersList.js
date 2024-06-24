@@ -4,6 +4,22 @@ import User from "./User"
 export default function UsersList({ users }) {
     const [searchInput, setSearchInput] = useState("");
     const [sortKey, setSortKey] = useState("id");
+    const [expanded, setExpanded] = useState([]);
+
+    const toggleExpanded = (id) => {
+        if (expanded.includes(id)) {
+            setExpanded(expanded.filter((currId) => currId !== id));
+        } else {
+            setExpanded([...expanded, id]);
+        }
+    }
+    const toggleExpandAll = () => {
+        const expandAll = users.map((user) => user.id);
+        setExpanded(expandAll);
+    };
+    const toggleCollapseAll = () => {
+        setExpanded([]);
+    };
 
     const handleChange = (e) => {
         setSearchInput(e.target.value);
@@ -41,7 +57,8 @@ export default function UsersList({ users }) {
             return <div className="NoContent">No results for {searchInput} </div>;
         }
         return usersToDisplay.map((user) => (
-            <User key={user.id} user={user} />
+            <User key={user.id} user={user} expanded={expanded.includes(user.id)}
+                onClick={() => toggleExpanded(user.id)} />
         ));
     };
 
@@ -61,6 +78,8 @@ export default function UsersList({ users }) {
                         <option value="name">name</option>
                         <option value="email">email</option>
                     </select>
+                    <button onClick={toggleExpandAll}>Expand All</button>
+                    <button onClick={toggleCollapseAll}>Collaspe All</button>
 
                 </div>
                 <div className=''>{renderContent()}</div>
